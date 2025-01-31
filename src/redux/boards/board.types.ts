@@ -3,3 +3,8 @@ export type Board = {
   name: string;
   hashedId: string;
 };
+
+export type BoardData = {
+  name: string;
+  hashedId: string;
+};
