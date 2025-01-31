@@ -1,26 +1,43 @@
 import { IoClose } from "react-icons/io5";
 import { generateHashId } from "../../helpers/generateHashId";
 import { useAppDispatch } from "../../hooks";
-import { createBoard } from "../../redux/boards/operations";
+import { createBoard, updateBoard } from "../../redux/boards/operations";
+import { Board } from "../../redux/boards/board.types";
 
 type Props = {
   isModalOpen: boolean;
   handleCloseModal: () => void;
+  boardData?: Board;
 };
 
-const BoardModal: React.FC<Props> = ({ isModalOpen, handleCloseModal }) => {
+const BoardModal: React.FC<Props> = ({
+  isModalOpen,
+  handleCloseModal,
+  boardData
+}) => {
   const dispatch = useAppDispatch();
 
-  const addBoard = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const name = form.elements.namedItem("name") as HTMLInputElement;
-    const data = {
-      name: name.value,
-      hashedId: generateHashId()
-    };
-    dispatch(createBoard(data));
+
+    if (boardData) {
+      const data = {
+        _id: boardData?._id,
+        name: name.value,
+        hashedId: boardData.hashedId
+      };
+      dispatch(updateBoard(data));
+    } else {
+      const data = {
+        name: name.value,
+        hashedId: generateHashId()
+      };
+      dispatch(createBoard(data));
+    }
     form.reset();
+    handleCloseModal();
   };
 
   return (
@@ -45,14 +62,16 @@ const BoardModal: React.FC<Props> = ({ isModalOpen, handleCloseModal }) => {
           </div>
           <form
             className="mt-4 flex gap-3 flex-col"
-            onSubmit={(e) => addBoard(e)}
+            onSubmit={(e) => handleSubmit(e)}
           >
+            <p id="hashedId">Board id: {boardData?.hashedId}</p>
             <label htmlFor="name">Name</label>
             <input
               type="text"
               name="name"
               placeholder="Enter board`s name..."
               className="border border-gray-400 rounded-sm p-3"
+              defaultValue={boardData ? boardData.name : ""}
             />
             <button
               type="submit"

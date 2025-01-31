@@ -6,20 +6,32 @@ import { HiPencilAlt } from "react-icons/hi";
 import { FaTrashCan } from "react-icons/fa6";
 import BoardModal from "../../components/BoardModal";
 import { deleteBoard } from "../../redux/boards/operations";
+import { useState } from "react";
+import { Board } from "../../redux/boards/board.types";
 
 const Home = () => {
   const boards = useAppSelector(selectBoards);
   const dispatch = useAppDispatch();
+  const [formMode, setFormMode] = useState<string>("add");
+  const [boardData, setBoardData] = useState<Board>();
 
   const { isOpen, openModal, closeModal } = useModal(false);
 
-  const handleDeleteBoard = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const li = e.currentTarget.closest("li");
-    const id = li?.getAttribute("data-id");
+  const handleOpenAdd = () => {
+    openModal();
+    setFormMode("add");
+  };
 
+  const handleDeleteBoard = (id: string) => {
     if (id) {
       dispatch(deleteBoard(id));
     }
+  };
+
+  const handleOpenEdit = (board: Board) => {
+    openModal();
+    setFormMode("edit");
+    setBoardData(board);
   };
 
   return (
@@ -27,7 +39,7 @@ const Home = () => {
       <button
         className="mt-7 inlibe-flex rounded-full p-2 bg-gray-400"
         type="button"
-        onClick={openModal}
+        onClick={handleOpenAdd}
       >
         <FaPlus className="fill-white w-[20px] h-[20px]" />
       </button>
@@ -44,18 +56,29 @@ const Home = () => {
               </p>
               <div className="text-md">{board.name}</div>
               <div className="absolute bottom-[10px] flex gap-2.5">
-                <button type="button">
+                <button type="button" onClick={() => handleOpenEdit(board)}>
                   <HiPencilAlt className="w-[20px] h-[20px]" />
                 </button>
-                <button type="button" onClick={(e) => handleDeleteBoard(e)}>
-                  <FaTrashCan className="w-[20px] h-[20px]" />
+                <button
+                  type="button"
+                  onClick={() => handleDeleteBoard(board._id)}
+                >
+                  <FaTrashCan className="w-[20px] h-[20px] hover:fill-red-500" />
                 </button>
               </div>
             </li>
           );
         })}
       </ul>
-      <BoardModal isModalOpen={isOpen} handleCloseModal={closeModal} />
+      {formMode === "add" ? (
+        <BoardModal isModalOpen={isOpen} handleCloseModal={closeModal} />
+      ) : (
+        <BoardModal
+          isModalOpen={isOpen}
+          handleCloseModal={closeModal}
+          boardData={boardData}
+        />
+      )}
     </div>
   );
 };
