@@ -7,7 +7,7 @@ import { selectCurBoard } from "../../redux/boards/selectors";
 type Props = {
   isModalOpen: boolean;
   handleCloseModal: () => void;
-  maxOrder: number;
+  maxOrder?: number;
   cardData?: Card;
 };
 
@@ -39,7 +39,7 @@ const CardModal: React.FC<Props> = ({
       };
       dispatch(updateCard(data));
     } else {
-      if (curBoard !== null) {
+      if (curBoard !== null && maxOrder) {
         const data = {
           boardId: curBoard._id,
           title: title.value,

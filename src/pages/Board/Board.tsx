@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getBoardById } from "../../redux/boards/operations";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -7,6 +7,7 @@ import { selectCards } from "../../redux/cards/selectors";
 import CardList from "../../components/CardList";
 import CardModal from "../../components/CardModal";
 import { useModal } from "../../hooks/useModal";
+import { Card, CardData } from "../../redux/cards/card.types";
 
 const Board = () => {
   const params = useParams();
@@ -25,6 +26,8 @@ const Board = () => {
   const done = cards.filter((card) => card.status === "Done");
 
   const { isOpen, openModal, closeModal } = useModal(false);
+  const [formMode, setFormMode] = useState<string>("add");
+  const [cardData, setCardData] = useState<Card>();
 
   useEffect(() => {
     dispatch(getBoardById(id));
@@ -33,6 +36,17 @@ const Board = () => {
   useEffect(() => {
     dispatch(getCardsByBoard(id));
   }, [dispatch, id]);
+
+  const handleOpenAdd = () => {
+    setFormMode("add");
+    openModal();
+  };
+
+  const handleOpenEdit = (card: Card) => {
+    setFormMode("edit");
+    setCardData(card);
+    openModal();
+  };
 
   return (
     <>
@@ -50,17 +64,26 @@ const Board = () => {
                       : done
                 }
                 isToDo={status === "ToDo"}
-                handleOpenAdd={openModal}
+                handleOpenAdd={handleOpenAdd}
+                handleOpenEdit={handleOpenEdit}
               />
             </li>
           ))}
         </ul>
       </div>
-      <CardModal
-        isModalOpen={isOpen}
-        handleCloseModal={closeModal}
-        maxOrder={max}
-      />
+      {formMode === "Add" ? (
+        <CardModal
+          isModalOpen={isOpen}
+          handleCloseModal={closeModal}
+          maxOrder={max}
+        />
+      ) : (
+        <CardModal
+          isModalOpen={isOpen}
+          handleCloseModal={closeModal}
+          cardData={cardData}
+        />
+      )}
     </>
   );
 };

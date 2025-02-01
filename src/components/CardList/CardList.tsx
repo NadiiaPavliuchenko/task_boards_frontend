@@ -1,9 +1,6 @@
 import { FaPlus, FaTrashCan } from "react-icons/fa6";
 import { HiPencilAlt } from "react-icons/hi";
 import { Card } from "../../redux/cards/card.types";
-import { useState } from "react";
-import { useModal } from "../../hooks/useModal";
-import CardModal from "../CardModal";
 import { useAppDispatch } from "../../hooks";
 import { deleteCard } from "../../redux/cards/operations";
 
@@ -11,12 +8,15 @@ type Props = {
   cards: Card[];
   isToDo: boolean;
   handleOpenAdd: () => void;
+  handleOpenEdit: (cardData: Card) => void;
 };
 
-const CardList: React.FC<Props> = ({ cards, isToDo, handleOpenAdd }) => {
-  //   const { isOpen, openModal, closeModal } = useModal(false);
-  //   const [formMode, setFormMode] = useState<string>("add");
-  //   const [cardData, setCardData] = useState<Card>();
+const CardList: React.FC<Props> = ({
+  cards,
+  isToDo,
+  handleOpenAdd,
+  handleOpenEdit
+}) => {
   const dispatch = useAppDispatch();
 
   const handleDeleteCard = (id: string) => {
@@ -34,7 +34,7 @@ const CardList: React.FC<Props> = ({ cards, isToDo, handleOpenAdd }) => {
             <p className="font-medium mb-[20px]">{card.title}</p>
             <p>{card.description}</p>
             <div className="absolute bottom-[20px] right-[20px] flex gap-2.5">
-              <button type="button">
+              <button type="button" onClick={() => handleOpenEdit(card)}>
                 <HiPencilAlt className="w-[20px] h-[20px] hover:fill-blue-400" />
               </button>
               <button type="button" onClick={() => handleDeleteCard(card._id)}>
