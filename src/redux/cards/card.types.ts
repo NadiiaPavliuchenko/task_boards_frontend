@@ -3,7 +3,7 @@ export type Card = {
   boardId: string;
   title: string;
   description?: string;
-  status: "ToDo" | "In Progress" | "Done";
+  status: string;
   order: number;
 };
 
@@ -11,11 +11,11 @@ export type CardData = {
   boardId: string;
   title: string;
   description?: string;
-  status: "ToDo" | "In Progress" | "Done";
+  status: string;
   order: number;
 };
 
 export type CardStatus = {
   _id: string;
-  status: "ToDo" | "In Progress" | "Done";
+  status: string;
 };

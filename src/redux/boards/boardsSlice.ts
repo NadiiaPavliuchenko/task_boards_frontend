@@ -10,7 +10,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface BoardsState {
   items: Board[];
-  curBoard: null;
+  curBoard: Board | null;
 }
 
 const initialState = {
