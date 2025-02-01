@@ -7,6 +7,8 @@ import { getAllBoards } from "../../redux/boards/operations";
 const Layout = lazy(() => import("../../pages/Layout"));
 const Home = lazy(() => import("../../pages/Home"));
 const Board = lazy(() => import("../../pages/Board"));
+const Loading = lazy(() => import("../../pages/Loading"));
+const Error = lazy(() => import("../../pages/Error"));
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -16,12 +18,12 @@ export function App() {
   });
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path=":id" element={<Board />} />
-          <Route path="*" element={<Home />} />
+          <Route path="board/:id" element={<Board />} />
+          <Route path="*" element={<Error />} />
         </Route>
       </Routes>
     </Suspense>

@@ -7,7 +7,7 @@ const Header = () => {
     e.preventDefault();
     const form = e.currentTarget;
     const boardId = form.elements.namedItem("query") as HTMLInputElement;
-    navigate(`${boardId.value}`);
+    navigate(`board/${boardId.value}`);
     form.reset();
   };
 
