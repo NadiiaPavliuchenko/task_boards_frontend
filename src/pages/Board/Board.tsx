@@ -7,7 +7,7 @@ import { selectCards } from "../../redux/cards/selectors";
 import CardList from "../../components/CardList";
 import CardModal from "../../components/CardModal";
 import { useModal } from "../../hooks/useModal";
-import { Card, CardData } from "../../redux/cards/card.types";
+import { Card } from "../../redux/cards/card.types";
 
 const Board = () => {
   const params = useParams();
