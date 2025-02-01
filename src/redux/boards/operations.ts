@@ -51,8 +51,8 @@ export const updateBoard = createAsyncThunk(
   "boards/update",
   async (data: Board, thunkAPI) => {
     try {
-      const { name, hashedId } = data;
-      const response = await api.put(`/board/${data._id}`, { name, hashedId });
+      const { name } = data;
+      const response = await api.put(`/board/${data._id}`, { name });
       return response.data;
     } catch (e) {
       if (e instanceof Error) {

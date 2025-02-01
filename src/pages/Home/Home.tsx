@@ -44,31 +44,32 @@ const Home = () => {
         <FaPlus className="fill-white w-[20px] h-[20px]" />
       </button>
       <ul className="mt-4 flex gap-[20px] flex-wrap items-center">
-        {boards.map((board) => {
-          return (
-            <li
-              className="w-[190px] h-[190px] p-2.5 bg-gray-200 relative flex flex-col items-center justify-center"
-              key={board._id}
-              data-id={board._id}
-            >
-              <p className="text-sm text-gray-500 absolute top-1 left-1">
-                {board.hashedId}
-              </p>
-              <div className="text-md">{board.name}</div>
-              <div className="absolute bottom-[10px] flex gap-2.5">
-                <button type="button" onClick={() => handleOpenEdit(board)}>
-                  <HiPencilAlt className="w-[20px] h-[20px]" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDeleteBoard(board._id)}
-                >
-                  <FaTrashCan className="w-[20px] h-[20px] hover:fill-red-500" />
-                </button>
-              </div>
-            </li>
-          );
-        })}
+        {boards &&
+          boards.map((board) => {
+            return (
+              <li
+                className="w-[190px] h-[190px] p-2.5 bg-gray-200 relative flex flex-col items-center justify-center"
+                key={board._id}
+                data-id={board._id}
+              >
+                <p className="text-sm text-gray-500 absolute top-1 left-1">
+                  {board._id}
+                </p>
+                <div className="text-md">{board.name}</div>
+                <div className="absolute bottom-[10px] flex gap-2.5">
+                  <button type="button" onClick={() => handleOpenEdit(board)}>
+                    <HiPencilAlt className="w-[20px] h-[20px] hover:fill-blue-400" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteBoard(board._id)}
+                  >
+                    <FaTrashCan className="w-[20px] h-[20px] hover:fill-red-500" />
+                  </button>
+                </div>
+              </li>
+            );
+          })}
       </ul>
       {formMode === "add" ? (
         <BoardModal isModalOpen={isOpen} handleCloseModal={closeModal} />

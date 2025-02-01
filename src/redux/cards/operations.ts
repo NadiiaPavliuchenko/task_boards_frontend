@@ -6,7 +6,7 @@ export const getCardsByBoard = createAsyncThunk(
   "cards/getAll",
   async (boardId: string, thunkAPI) => {
     try {
-      const response = await api.get(`/card${boardId}`);
+      const response = await api.get(`/card/${boardId}`);
       return response.data;
     } catch (e) {
       if (e instanceof Error) {

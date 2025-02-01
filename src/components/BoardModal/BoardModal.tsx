@@ -1,5 +1,4 @@
 import { IoClose } from "react-icons/io5";
-import { generateHashId } from "../../helpers/generateHashId";
 import { useAppDispatch } from "../../hooks";
 import { createBoard, updateBoard } from "../../redux/boards/operations";
 import { Board } from "../../redux/boards/board.types";
@@ -25,14 +24,12 @@ const BoardModal: React.FC<Props> = ({
     if (boardData) {
       const data = {
         _id: boardData?._id,
-        name: name.value,
-        hashedId: boardData.hashedId
+        name: name.value
       };
       dispatch(updateBoard(data));
     } else {
       const data = {
-        name: name.value,
-        hashedId: generateHashId()
+        name: name.value
       };
       dispatch(createBoard(data));
     }
@@ -51,7 +48,7 @@ const BoardModal: React.FC<Props> = ({
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex justify-between items-center">
-            <h3 className="text-xl">Add Board</h3>
+            <h3 className="text-xl">Board</h3>
             <button
               className="inline-flex items-center"
               type="button"
@@ -64,7 +61,7 @@ const BoardModal: React.FC<Props> = ({
             className="mt-4 flex gap-3 flex-col"
             onSubmit={(e) => handleSubmit(e)}
           >
-            <p id="hashedId">Board id: {boardData?.hashedId}</p>
+            <p id="hashedId">Board id: {boardData?._id}</p>
             <label htmlFor="name">Name</label>
             <input
               type="text"
