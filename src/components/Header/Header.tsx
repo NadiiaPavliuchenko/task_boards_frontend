@@ -25,7 +25,7 @@ const Header = () => {
           className="bg-gray-300 h-7 px-4 py-5 rounded-md text-sm inline-flex items-center"
           type="submit"
         >
-          Search
+          Load
         </button>
       </form>
     </div>
