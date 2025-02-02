@@ -1,57 +1,55 @@
-import { FaPlus, FaTrashCan } from "react-icons/fa6";
-import { HiPencilAlt } from "react-icons/hi";
+import { FaPlus } from "react-icons/fa6";
 import { Card } from "../../redux/cards/card.types";
-import { useAppDispatch } from "../../hooks";
-import { deleteCard } from "../../redux/cards/operations";
+import CardComponent from "../CardComponent";
+import {
+  Droppable,
+  DroppableProvided,
+  DroppableStateSnapshot
+} from "@hello-pangea/dnd";
 
 type Props = {
   cards: Card[];
-  isToDo: boolean;
+  columnId: string;
   handleOpenAdd: () => void;
   handleOpenEdit: (cardData: Card) => void;
 };
 
 const CardList: React.FC<Props> = ({
   cards,
-  isToDo,
+  columnId,
   handleOpenAdd,
   handleOpenEdit
 }) => {
-  const dispatch = useAppDispatch();
-
-  const handleDeleteCard = (id: string) => {
-    dispatch(deleteCard(id));
-  };
-
   return (
-    <ul className="bg-gray-200 p-4 h-[800px] w-[400px] overflow-y-auto flex flex-col gap-[20px] items-center">
-      {cards &&
-        cards.map((card) => (
-          <li
-            key={card._id}
-            className="bg-gray-300 w-full h-[200px] p-[20px] text-left relative"
-          >
-            <p className="font-medium mb-[20px]">{card.title}</p>
-            <p>{card.description}</p>
-            <div className="absolute bottom-[20px] right-[20px] flex gap-2.5">
-              <button type="button" onClick={() => handleOpenEdit(card)}>
-                <HiPencilAlt className="w-[20px] h-[20px] hover:fill-blue-400" />
-              </button>
-              <button type="button" onClick={() => handleDeleteCard(card._id)}>
-                <FaTrashCan className="w-[20px] h-[20px] hover:fill-red-500" />
-              </button>
-            </div>
-          </li>
-        ))}
-      {isToDo && (
-        <li
-          className="bg-gray-300 w-full h-[200px] relative"
-          onClick={handleOpenAdd}
+    <Droppable key={columnId} droppableId={columnId} type="group">
+      {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+        <ul
+          id={columnId}
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          className="bg-gray-200 p-4 h-[800px] w-[400px] overflow-y-auto flex flex-col gap-[20px] items-center"
         >
-          <FaPlus className="w-[20px] h-[20px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]" />
-        </li>
+          {cards &&
+            cards.map((card, index) => (
+              <CardComponent
+                key={card._id}
+                card={card}
+                handleOpenEdit={handleOpenEdit}
+                index={index}
+              />
+            ))}
+          {provided.placeholder}
+          {columnId === "ToDo" && (
+            <li
+              className="bg-gray-300 w-full h-[200px] relative"
+              onClick={handleOpenAdd}
+            >
+              <FaPlus className="w-[20px] h-[20px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]" />
+            </li>
+          )}
+        </ul>
       )}
-    </ul>
+    </Droppable>
   );
 };
 

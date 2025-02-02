@@ -3,8 +3,9 @@ import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "../../hooks";
 import { getAllBoards } from "../../redux/boards/operations";
+import Layout from "../../pages/Layout";
 
-const Layout = lazy(() => import("../../pages/Layout"));
+// const Layout = lazy(() => import("../../pages/Layout"));
 const Home = lazy(() => import("../../pages/Home"));
 const Board = lazy(() => import("../../pages/Board"));
 const Loading = lazy(() => import("../../pages/Loading"));
@@ -15,7 +16,7 @@ export function App() {
 
   useEffect(() => {
     dispatch(getAllBoards());
-  });
+  }, [dispatch]);
 
   return (
     <Suspense fallback={<Loading />}>
