@@ -18,7 +18,7 @@ const Header = () => {
         <input
           type="text"
           name="query"
-          placeholder="Enter board ID..."
+          placeholder="Enter board id..."
           className="w-full px-2 py-5 h-7 border border-solid border-gray-400 rounded-sm"
         />
         <button
