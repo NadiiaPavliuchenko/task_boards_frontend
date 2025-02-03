@@ -22,5 +22,11 @@ export type StatusBody = {
 };
 
 export type OrderBody = {
-  crads: string[];
+  cards: string[];
+};
+
+export type BoardColumns = {
+  todo: string[];
+  inProgress: string[];
+  done: string[];
 };

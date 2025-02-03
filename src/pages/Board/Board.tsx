@@ -31,19 +31,6 @@ const Board = () => {
     }
   }, [dispatch, ids]);
 
-  // function findContainer(id: string) {
-  //   if (todo.some((card) => card._id === id)) {
-  //     return "ToDo";
-  //   }
-  //   if (progress.some((card) => card._id === id)) {
-  //     return "In Progress";
-  //   }
-  //   if (done.some((card) => card._id === id)) {
-  //     return "Done";
-  //   }
-  //   return null;
-  // }
-
   return (
     <div className="p-4">
       <BoardComponent />

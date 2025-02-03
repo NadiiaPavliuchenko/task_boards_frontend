@@ -35,7 +35,7 @@ const CardList: React.FC<Props> = ({
               />
             ))}
           {provided.placeholder}
-          {columnId === "ToDo" && (
+          {columnId === "todo" && (
             <li
               className="bg-gray-300 w-full h-[200px] relative"
               onClick={handleOpenAdd}
