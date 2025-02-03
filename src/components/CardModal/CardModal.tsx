@@ -7,14 +7,12 @@ import { selectCurBoard } from "../../redux/boards/selectors";
 type Props = {
   isModalOpen: boolean;
   handleCloseModal: () => void;
-  maxOrder?: number;
   cardData?: Card;
 };
 
 const CardModal: React.FC<Props> = ({
   isModalOpen,
   handleCloseModal,
-  maxOrder,
   cardData
 }) => {
   const dispatch = useAppDispatch();
@@ -31,21 +29,16 @@ const CardModal: React.FC<Props> = ({
     if (cardData) {
       const data = {
         _id: cardData?._id,
-        boardId: cardData?.boardId,
         title: title.value,
-        description: description.value,
-        status: cardData?.status,
-        order: cardData?.order
+        description: description.value
       };
       dispatch(updateCard(data));
     } else {
-      if (curBoard !== null && maxOrder) {
+      if (curBoard !== null) {
         const data = {
           boardId: curBoard._id,
           title: title.value,
-          description: description.value,
-          status: "ToDo",
-          order: maxOrder + 1
+          ...(description.value.trim() && { description: description.value })
         };
         dispatch(createCard(data));
       }

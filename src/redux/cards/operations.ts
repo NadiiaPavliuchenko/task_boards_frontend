@@ -6,11 +6,9 @@ export const getCardsById = createAsyncThunk(
   "cards/getAll",
   async (ids: string[], thunkAPI) => {
     try {
-      // console.log(ids);
       const responses = await Promise.all(
         ids.map((id) => api.get(`/card/${id}`))
       );
-      console.log(responses);
       return responses.map((res) => res.data);
     } catch (e) {
       if (e instanceof Error) {
@@ -26,6 +24,7 @@ export const createCard = createAsyncThunk(
   async (data: CreateCardData, thunkAPI) => {
     try {
       const response = await api.post("/card", data);
+      console.log(response.data);
       return response.data;
     } catch (e) {
       if (e instanceof Error) {

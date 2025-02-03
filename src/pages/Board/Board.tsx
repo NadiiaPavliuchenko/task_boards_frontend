@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { getBoardById } from "../../redux/boards/operations";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -17,11 +17,13 @@ const Board = () => {
     dispatch(getBoardById(id));
   }, [dispatch, id]);
 
-  const ids = [
-    ...(curBoard?.todo ?? []),
-    ...(curBoard?.inProgress ?? []),
-    ...(curBoard?.done ?? [])
-  ];
+  const ids = useMemo(() => {
+    return [
+      ...(curBoard?.todo ?? []),
+      ...(curBoard?.inProgress ?? []),
+      ...(curBoard?.done ?? [])
+    ];
+  }, [curBoard]);
 
   useEffect(() => {
     if (ids.length > 0) {

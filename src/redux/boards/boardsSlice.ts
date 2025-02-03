@@ -10,6 +10,7 @@ import {
   deleteBoard
 } from "./operations";
 import { createSlice } from "@reduxjs/toolkit";
+import { createCard } from "../cards/operations";
 
 interface BoardsState {
   items: Board[];
@@ -66,6 +67,19 @@ const boardsSlice = createSlice({
         );
         if (index != -1) {
           state.items.splice(index, 1);
+        }
+      })
+      .addCase(createCard.fulfilled, (state, action) => {
+        const { _id } = action.payload.data;
+        const boardId = state.curBoard?._id;
+
+        if (state.curBoard && state.curBoard._id === boardId) {
+          state.curBoard.todo.push(_id);
+        }
+
+        const index = state.items.findIndex((board) => board._id === boardId);
+        if (index !== -1) {
+          state.items[index].todo.push(_id);
         }
       });
   }

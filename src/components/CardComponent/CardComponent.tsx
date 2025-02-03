@@ -2,8 +2,9 @@ import { FaTrashCan } from "react-icons/fa6";
 import { HiPencilAlt } from "react-icons/hi";
 import { Card } from "../../redux/cards/card.types";
 import { deleteCard } from "../../redux/cards/operations";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Draggable, DraggableProvided } from "@hello-pangea/dnd";
+import { selectCurBoard } from "../../redux/boards/selectors";
 
 type Props = {
   card: Card;
@@ -13,9 +14,12 @@ type Props = {
 
 const CardComponent: React.FC<Props> = ({ card, handleOpenEdit, index }) => {
   const dispatch = useAppDispatch();
+  const curBoard = useAppSelector(selectCurBoard);
 
   const handleDeleteCard = (id: string) => {
-    dispatch(deleteCard(id));
+    if (curBoard) {
+      dispatch(deleteCard({ id, boardId: curBoard._id }));
+    }
   };
 
   return (

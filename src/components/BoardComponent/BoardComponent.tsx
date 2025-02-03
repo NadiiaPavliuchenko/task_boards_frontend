@@ -13,7 +13,6 @@ const BoardComponent = () => {
   const curBoard = useAppSelector(selectCurBoard);
 
   const todo = cards.filter((card) => curBoard?.todo.includes(card._id));
-  console.log(todo);
 
   const progress = cards.filter((card) =>
     curBoard?.inProgress.includes(card._id)
@@ -64,7 +63,7 @@ const BoardComponent = () => {
           ))}
         </ul>
       </DragDropContext>
-      {formMode === "Add" ? (
+      {formMode === "add" ? (
         <CardModal isModalOpen={isOpen} handleCloseModal={closeModal} />
       ) : (
         <CardModal
