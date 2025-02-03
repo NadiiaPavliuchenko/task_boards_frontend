@@ -1,9 +1,12 @@
+import { act } from "react";
 import { Board } from "./board.types";
 import {
   getAllBoards,
   getBoardById,
   createBoard,
   updateBoard,
+  chandeCardStatus,
+  chandeCardsOrder,
   deleteBoard
 } from "./operations";
 import { createSlice } from "@reduxjs/toolkit";
@@ -34,6 +37,22 @@ const boardsSlice = createSlice({
         state.items.unshift(action.payload.data);
       })
       .addCase(updateBoard.fulfilled, (state, action) => {
+        const index = state.items.findIndex(
+          (board) => board._id === action.payload.data._id
+        );
+        if (index != -1) {
+          state.items[index] = action.payload.data;
+        }
+      })
+      .addCase(chandeCardStatus.fulfilled, (state, action) => {
+        const index = state.items.findIndex(
+          (board) => board._id === action.payload.data._id
+        );
+        if (index != -1) {
+          state.items[index] = action.payload.data;
+        }
+      })
+      .addCase(chandeCardsOrder.fulfilled, (state, action) => {
         const index = state.items.findIndex(
           (board) => board._id === action.payload.data._id
         );

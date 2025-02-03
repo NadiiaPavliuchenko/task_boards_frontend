@@ -14,14 +14,6 @@ type Props = {
 const CardComponent: React.FC<Props> = ({ card, handleOpenEdit, index }) => {
   const dispatch = useAppDispatch();
 
-  // const { attributes, listeners, setNodeRef, transform, transition } =
-  //   useSortable({ id: card._id });
-
-  // const style = {
-  //   transform: CSS.Transform.toString(transform),
-  //   transition
-  // };
-
   const handleDeleteCard = (id: string) => {
     dispatch(deleteCard(id));
   };
@@ -30,10 +22,6 @@ const CardComponent: React.FC<Props> = ({ card, handleOpenEdit, index }) => {
     <Draggable key={card._id} draggableId={card._id} index={index}>
       {(provided: DraggableProvided) => (
         <li
-          // ref={setNodeRef}
-          // {...listeners}
-          // {...attributes}
-          // style={style}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

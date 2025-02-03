@@ -1,13 +1,17 @@
 import api from "../api/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { CardData, Card, CardStatus } from "./card.types";
+import { Card, CreateCardData } from "./card.types";
 
-export const getCardsByBoard = createAsyncThunk(
+export const getCardsById = createAsyncThunk(
   "cards/getAll",
-  async (boardId: string, thunkAPI) => {
+  async (ids: string[], thunkAPI) => {
     try {
-      const response = await api.get(`/card/${boardId}`);
-      return response.data;
+      // console.log(ids);
+      const responses = await Promise.all(
+        ids.map((id) => api.get(`/card/${id}`))
+      );
+      console.log(responses);
+      return responses.map((res) => res.data);
     } catch (e) {
       if (e instanceof Error) {
         return thunkAPI.rejectWithValue(e.message);
@@ -19,7 +23,7 @@ export const getCardsByBoard = createAsyncThunk(
 
 export const createCard = createAsyncThunk(
   "cards/create",
-  async (data: CardData, thunkAPI) => {
+  async (data: CreateCardData, thunkAPI) => {
     try {
       const response = await api.post("/card", data);
       return response.data;
@@ -36,29 +40,11 @@ export const updateCard = createAsyncThunk(
   "cards/update",
   async (data: Card, thunkAPI) => {
     try {
-      const { title, description, status, order } = data;
+      const { title, description } = data;
       const response = await api.put(`/card/${data._id}`, {
         title,
-        description,
-        status,
-        order
+        description
       });
-      return response.data;
-    } catch (e) {
-      if (e instanceof Error) {
-        return thunkAPI.rejectWithValue(e.message);
-      }
-      return thunkAPI.rejectWithValue("Unknown error occurred");
-    }
-  }
-);
-
-export const updateCardStatus = createAsyncThunk(
-  "cards/updateStatus",
-  async (data: CardStatus, thunkAPI) => {
-    try {
-      const { _id, status } = data;
-      const response = await api.patch(`/card/${_id}`, { status });
       return response.data;
     } catch (e) {
       if (e instanceof Error) {
@@ -71,9 +57,9 @@ export const updateCardStatus = createAsyncThunk(
 
 export const deleteCard = createAsyncThunk(
   "cards/delete",
-  async (id: string, thunkAPI) => {
+  async ({ id, boardId }: { id: string; boardId: string }, thunkAPI) => {
     try {
-      const response = await api.delete(`/card/${id}`);
+      const response = await api.delete(`/card/${id}/board/${boardId}`);
       return response.data;
     } catch (e) {
       if (e instanceof Error) {

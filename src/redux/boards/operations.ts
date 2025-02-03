@@ -1,6 +1,6 @@
 import api from "../api/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { BoardData, Board } from "./board.types";
+import { BoardData, Board, StatusBody, OrderBody } from "./board.types";
 
 export const getAllBoards = createAsyncThunk(
   "boards/getAll",
@@ -52,7 +52,43 @@ export const updateBoard = createAsyncThunk(
   async (data: Board, thunkAPI) => {
     try {
       const { name } = data;
-      const response = await api.put(`/board/${data._id}`, { name });
+      const response = await api.patch(`/board/${data._id}`, { name });
+      return response.data;
+    } catch (e) {
+      if (e instanceof Error) {
+        return thunkAPI.rejectWithValue(e.message);
+      }
+      return thunkAPI.rejectWithValue("Unknown error occurred");
+    }
+  }
+);
+
+export const chandeCardStatus = createAsyncThunk(
+  "boards/changeColumns",
+  async ({ id, body }: { id: string; body: StatusBody }, thunkAPI) => {
+    try {
+      const response = await api.patch(`/board/${id}/move-card`, body);
+      return response.data;
+    } catch (e) {
+      if (e instanceof Error) {
+        return thunkAPI.rejectWithValue(e.message);
+      }
+      return thunkAPI.rejectWithValue("Unknown error occurred");
+    }
+  }
+);
+
+export const chandeCardsOrder = createAsyncThunk(
+  "boards/changeOrder",
+  async (
+    { id, columnId, body }: { id: string; columnId: string; body: OrderBody },
+    thunkAPI
+  ) => {
+    try {
+      const response = await api.patch(
+        `/board/${id}/columns/${columnId}`,
+        body
+      );
       return response.data;
     } catch (e) {
       if (e instanceof Error) {
