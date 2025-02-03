@@ -10,6 +10,11 @@ export type BoardData = {
   name: string;
 };
 
+export type CreateBoardData = {
+  _id: string;
+  name: string;
+};
+
 export type StatusBody = {
   cardId: string;
   fromColumnId: string;

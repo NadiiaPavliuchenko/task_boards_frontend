@@ -1,6 +1,12 @@
 import api from "../api/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { BoardData, Board, StatusBody, OrderBody } from "./board.types";
+import {
+  BoardData,
+  CreateBoardData,
+  Board,
+  StatusBody,
+  OrderBody
+} from "./board.types";
 
 export const getAllBoards = createAsyncThunk(
   "boards/getAll",
@@ -49,7 +55,7 @@ export const createBoard = createAsyncThunk(
 
 export const updateBoard = createAsyncThunk(
   "boards/update",
-  async (data: Board, thunkAPI) => {
+  async (data: CreateBoardData, thunkAPI) => {
     try {
       const { name } = data;
       const response = await api.patch(`/board/${data._id}`, { name });
