@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@plugin "tailwind-scrollbar" {
+  nocompatible: true;
+  preferredstrategy: "pseudoelements";
+}
 
 body {
   margin: 0;

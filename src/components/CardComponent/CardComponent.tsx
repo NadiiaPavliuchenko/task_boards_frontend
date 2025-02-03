@@ -29,7 +29,7 @@ const CardComponent: React.FC<Props> = ({ card, handleOpenEdit, index }) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className="bg-gray-300 w-full h-[200px] p-[20px] text-left relative touch-none"
+          className="bg-gray-300 w-full min-h-[200px] p-[20px] text-left relative touch-none"
         >
           <p className="font-medium mb-[20px]">{card.title}</p>
           <p>{card.description}</p>

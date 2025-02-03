@@ -23,7 +23,7 @@ const CardList: React.FC<Props> = ({
           id={columnId}
           ref={provided.innerRef}
           {...provided.droppableProps}
-          className="bg-gray-200 p-4 h-[800px] w-[400px] overflow-y-auto flex flex-col gap-[20px] items-center"
+          className="bg-gray-200 p-4 h-[800px] w-[300px] md:w-[400px] overflow-y-auto flex flex-col gap-[20px] items-center scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
         >
           {cards &&
             cards.map((card, index) => (
@@ -37,7 +37,7 @@ const CardList: React.FC<Props> = ({
           {provided.placeholder}
           {columnId === "todo" && (
             <li
-              className="bg-gray-300 w-full h-[200px] relative"
+              className="bg-gray-300 w-full min-h-[200px] relative"
               onClick={handleOpenAdd}
             >
               <FaPlus className="w-[20px] h-[20px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]" />

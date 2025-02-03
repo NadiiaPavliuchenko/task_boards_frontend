@@ -15,6 +15,7 @@ const BoardModal: React.FC<Props> = ({
   boardData
 }) => {
   const dispatch = useAppDispatch();
+  const mode = boardData ? "edit" : "add";
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,15 +41,17 @@ const BoardModal: React.FC<Props> = ({
   return (
     isModalOpen && (
       <div
-        className="bg-[rgba(0,0,0,0.5)] absolute top-0 left-0 w-full h-full z-0"
+        className="bg-[rgba(0,0,0,0.5)] fixed top-0 left-0 w-full h-full z-50"
         onClick={handleCloseModal}
       >
         <div
-          className="bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] rounded-xl p-5 min-h-[200px]"
+          className="bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full sm:w-[600px] rounded-xl p-5 min-h-[200px] max-w-full"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex justify-between items-center">
-            <h3 className="text-xl">Board</h3>
+            <h3 className="text-xl">
+              {mode === "edit" ? "Edit" : "Add"} Board
+            </h3>
             <button
               className="inline-flex items-center"
               type="button"
@@ -61,8 +64,14 @@ const BoardModal: React.FC<Props> = ({
             className="mt-4 flex gap-3 flex-col"
             onSubmit={(e) => handleSubmit(e)}
           >
-            <p id="hashedId">Board id: {boardData?._id}</p>
-            <label htmlFor="name">Name</label>
+            {mode === "edit" && (
+              <p id="id" className="text-sm text-gray-600">
+                Board id: {boardData?._id}
+              </p>
+            )}
+            <label htmlFor="name" className="text-sm">
+              Name
+            </label>
             <input
               type="text"
               name="name"
@@ -72,7 +81,7 @@ const BoardModal: React.FC<Props> = ({
             />
             <button
               type="submit"
-              className="bg-gray-300 h-9 w-20 px-4 py-4 rounded-md text-sm inline-flex items-center justify-center self-end"
+              className="bg-gray-300 h-9 w-full sm:w-20 px-4 py-4 rounded-md text-sm inline-flex items-center justify-center self-end"
             >
               Send
             </button>

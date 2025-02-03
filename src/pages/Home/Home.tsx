@@ -47,38 +47,38 @@ const Home = () => {
   return (
     <div className="p-4">
       <button
-        className="mt-7 inlibe-flex rounded-full p-2 bg-gray-400"
+        className="mt-7 inlibe-flex rounded-full p-2 bg-gray-400 hover:bg-gray-500 hover:shadow-md transition duration-300"
         type="button"
         onClick={handleOpenAdd}
       >
         <FaPlus className="fill-white w-[20px] h-[20px]" />
       </button>
-      <ul className="mt-4 flex gap-[20px] flex-wrap items-center">
+      <ul className="mt-4 flex gap-[20px] flex-wrap items-center justify-between">
         {boards &&
           boards.map((board) => {
             return (
               <li
-                className="w-[190px] h-[190px] p-2.5 bg-gray-200 relative flex flex-col items-center justify-center"
+                className="w-full h-[200px] md:flex-1 md:min-w-[200px] p-2.5 bg-gray-200 relative flex flex-col items-center justify-center hover:scale-105 hover:shadow-lg transition duration-300"
                 key={board._id}
                 data-id={board._id}
                 onClick={() => navigate(`board/${board._id}`)}
               >
-                <p className="text-sm text-gray-500 absolute top-1 left-1">
+                <p className="text-sm text-gray-500 absolute top-1 left-1 italic">
                   {board._id}
                 </p>
-                <div className="text-md">{board.name}</div>
+                <div className="text-md font-bold">{board.name}</div>
                 <div className="absolute bottom-[10px] flex gap-2.5">
                   <button
                     type="button"
                     onClick={(e) => handleOpenEdit(e, board)}
                   >
-                    <HiPencilAlt className="w-[20px] h-[20px] hover:fill-blue-400" />
+                    <HiPencilAlt className="w-[20px] h-[20px] hover:fill-blue-400 transition duration-300" />
                   </button>
                   <button
                     type="button"
                     onClick={(e) => handleDeleteBoard(e, board._id)}
                   >
-                    <FaTrashCan className="w-[20px] h-[20px] hover:fill-red-500" />
+                    <FaTrashCan className="w-[20px] h-[20px] hover:fill-red-500 transition duration-300" />
                   </button>
                 </div>
               </li>

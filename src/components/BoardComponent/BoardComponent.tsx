@@ -90,9 +90,9 @@ const BoardComponent = () => {
     }
   };
   return (
-    <>
+    <div className="overflow-x-auto w-full py-4">
       <DragDropContext onDragEnd={(result) => handleDragEnd(result)}>
-        <ul className="flex justify-between">
+        <ul className="flex min-w-[800px] gap-[14px]">
           {["todo", "inProgress", "done"].map((status, index) => (
             <li key={index} className="text-center">
               <h3 className="text-xl mb-2.5">{status}</h3>
@@ -121,7 +121,7 @@ const BoardComponent = () => {
           cardData={cardData}
         />
       )}
-    </>
+    </div>
   );
 };
 
