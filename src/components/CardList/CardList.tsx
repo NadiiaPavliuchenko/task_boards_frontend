@@ -1,11 +1,7 @@
 import { FaPlus } from "react-icons/fa6";
 import { Card } from "../../redux/cards/card.types";
 import CardComponent from "../CardComponent";
-import {
-  Droppable,
-  DroppableProvided,
-  DroppableStateSnapshot
-} from "@hello-pangea/dnd";
+import { Droppable, DroppableProvided } from "@hello-pangea/dnd";
 
 type Props = {
   cards: Card[];
@@ -22,7 +18,7 @@ const CardList: React.FC<Props> = ({
 }) => {
   return (
     <Droppable key={columnId} droppableId={columnId} type="group">
-      {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+      {(provided: DroppableProvided) => (
         <ul
           id={columnId}
           ref={provided.innerRef}

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useState } from "react";
+import { useAppSelector } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import { selectCurBoard } from "../../redux/boards/selectors";
 import { selectCards } from "../../redux/cards/selectors";

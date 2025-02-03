@@ -1,4 +1,3 @@
-import { act } from "react";
 import { Board } from "./board.types";
 import {
   getAllBoards,

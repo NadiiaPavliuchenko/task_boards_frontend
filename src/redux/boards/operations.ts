@@ -3,7 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   BoardData,
   CreateBoardData,
-  Board,
   StatusBody,
   OrderBody
 } from "./board.types";
