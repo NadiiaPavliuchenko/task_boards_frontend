@@ -1,50 +1,51 @@
-# React + TypeScript + Vite
+# Task Board Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple task management web application built with React, TypeScript, and Vite. This app allows users to manage boards and tasks in a Trello-like interface.
 
-Currently, two official plugins are available:
+Deployed via [Netlify](https://www.netlify.com/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Api repository [link](https://github.com/NadiiaPavliuchenko/task_boards_backend)
 
-## Expanding the ESLint configuration
+Backend Api [link](https://task-boards-backend.onrender.com/api/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- Create, edit, and delete task boards and tasks.
+- Organize tasks in multiple To Do, In Progress and Done columns.
+- Drag and drop tasks between columns.
+- Change tasks order.
+- Responsive layout suitable for both desktop and mobile views.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Technologies Used
+
+- React: For building the user interface
+- Redux-toolkit: For state management
+- TypeScript: For type safety
+- TailwindCSS: For styling the application
+- @hello-pangea/dnd: For drag and drop implementation
+- Vite: For fast development setup
+
+## Installation
+
+1. Clone the repository:
+
+```
+git clone https://github.com/NadiiaPavliuchenko/task_boards_frontend.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Install dependencies:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
 ```
+npm install
+```
+
+3. Run the application:
+
+```
+npm run dev
+```
+
+## Development
+
+- Start the app: npm run dev
+- Build for production: npm run build
