@@ -1,0 +1,1 @@
+import{j as t}from"./index-DnSWtE8-.js";const s=()=>t.jsx("div",{className:"absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]",children:t.jsx("h2",{className:"font-bold text-3xl",children:"404 page not found"})});export{s as default};
